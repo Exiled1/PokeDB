@@ -1,13 +1,44 @@
 $button-padding: 5px 20px
 $description-padding: 20px
 $cell-padding: 10px
+$title-padding: 300px
+$big-font: 30px
+$med-font: 20px
+$sml-font: 15px
 
 div
-    padding: 20px
+    padding: $description-padding
+
+img
+    padding: $cell-padding
 
 #top_menu
     display: flex
+    align-self: center
+    padding: 0px
+    background-color: #CC2A49
+
+#top_menu_title
+    display: flex
     justify-content: flex-start
+    font-size: $big-font
+    align-self: center
+    padding-right: $title-padding
+
+.menu_title
+    align-self: center
+
+#top_menu_nav
+    display: flex
+    align-self: center
+    padding-left: $title-padding
+
+.page_description
+    display: flex
+    font-size: $med-font
+    text-align: center
+    justify-content: center
+    background-color: #EF4648
 
 .poke_table_container
     display: flex
@@ -16,6 +47,8 @@ div
 .poketables
     display: flex
     justify-content: center
+    background-color: #EF4648
+    padding-bottom: $description-padding
 
 .text
     display: flex
@@ -25,10 +58,6 @@ div
     display: flex
     justify-content: flex-start
     padding: $button-padding
-
-
-.page_description
-    padding: $description-padding
 
 
 .type_table_cell
@@ -41,3 +70,11 @@ div
 
 .Search
     padding: $button-padding
+
+#bottom_text
+    display: flex
+    justify-content: center
+    align-self: center
+    position:  relative
+    background-color: #F99E4C
+    bottom: -100px

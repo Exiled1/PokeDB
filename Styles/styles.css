@@ -2,13 +2,58 @@ div {
   padding: 20px;
 }
 
+img {
+  padding: 10px;
+}
+
 #top_menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: center;
+      align-self: center;
+  padding: 0px;
+  background-color: #CC2A49;
+}
+
+#top_menu_title {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
+  font-size: 30px;
+  -ms-flex-item-align: center;
+      align-self: center;
+  padding-right: 300px;
+}
+
+.menu_title {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+#top_menu_nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: center;
+      align-self: center;
+  padding-left: 300px;
+}
+
+.page_description {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 20px;
+  text-align: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #EF4648;
 }
 
 .poke_table_container {
@@ -28,6 +73,8 @@ div {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  background-color: #EF4648;
+  padding-bottom: 20px;
 }
 
 .text {
@@ -49,10 +96,6 @@ div {
   padding: 5px 20px;
 }
 
-.page_description {
-  padding: 20px;
-}
-
 .type_table_cell {
   padding: 10px;
 }
@@ -68,5 +111,19 @@ div {
 
 .Search {
   padding: 5px 20px;
+}
+
+#bottom_text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-item-align: center;
+      align-self: center;
+  position: relative;
+  background-color: #F99E4C;
+  bottom: -100px;
 }
 /*# sourceMappingURL=styles.css.map */

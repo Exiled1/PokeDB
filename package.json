@@ -1,0 +1,25 @@
+{
+  "name": "poke_db",
+  "version": "1.0.0",
+  "description": "Pokemon project we did cuz why not",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Exiled1/PokeDB.git"
+  },
+  "keywords": [
+    "npm"
+  ],
+  "author": "Rudy P, Josh Bell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Exiled1/PokeDB/issues"
+  },
+  "homepage": "https://github.com/Exiled1/PokeDB#readme",
+  "dependencies": {
+    "pokesprite-images": "^2.5.4"
+  }
+}

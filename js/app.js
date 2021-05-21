@@ -19,12 +19,13 @@ app.set('view engine', 'handlebars');
 
 
 app.get('/', async (req, res) => {
-    res.status(200).render('homepage')
+    res.status(200).render("homepage"); // Serve the page. 
 });
 
 
-
-
+app.get('/pokemon', async (req, res) => {
+    res.status(200).render("pokemon");
+});
 
 
 app.listen(PORT, ()=>{

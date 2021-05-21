@@ -13,6 +13,7 @@ PORT        = 9124;                 // Set a port number at the top so it's easy
 var db = require('./db-connector')
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'))
 
 // Setup layout
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}));

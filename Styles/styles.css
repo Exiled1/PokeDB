@@ -1,3 +1,7 @@
+body {
+  background-color: #582841;
+}
+
 div {
   padding: 20px;
 }
@@ -26,7 +30,7 @@ img {
   font-size: 30px;
   -ms-flex-item-align: center;
       align-self: center;
-  padding-right: 300px;
+  padding-right: 200px;
 }
 
 .menu_title {
@@ -41,7 +45,7 @@ img {
   display: flex;
   -ms-flex-item-align: center;
       align-self: center;
-  padding-left: 300px;
+  padding-left: 200px;
 }
 
 .page_description {
@@ -109,6 +113,15 @@ img {
           justify-content: center;
 }
 
+.InputValue {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .Search {
   padding: 5px 20px;
 }
@@ -126,38 +139,4 @@ img {
   background-color: #F99E4C;
   bottom: -100px;
 }
-.dropbtn {
-  background-color: #EF4648;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {background-color: #ddd;}
-
-.dropdown:hover .dropdown-content {display: block;}
-
-.dropdown:hover .dropbtn {background-color: #EE3030;}
 /*# sourceMappingURL=styles.css.map */

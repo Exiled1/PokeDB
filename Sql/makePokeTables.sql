@@ -1,50 +1,49 @@
 CREATE TABLE Types (
-    pokedex_id int,
-    type1 nvarchar(255),
-    type2 nvarchar(255) NULL
+    pokedex_id int(11),
+    type1 varchar(255),
+    type2 varchar(255) NULL
 );
 
-
-
 CREATE TABLE Abilities(
-    pokedex_id int PRIMARY KEY UNIQUE,
-    ability1    nvarchar(255),
-    ability2    nvarchar(255) NULL,
-    ability3    nvarchar(255) NULL,
-    ability4    nvarchar(255) NULL,
-    ability5    nvarchar(255) NULL,
-    hidden_abil nvarchar(255) NULL
+    pokedex_id int(11) PRIMARY KEY,
+    ability1    varchar(255),
+    ability2    varchar(255) NULL,
+    ability3    varchar(255) NULL,
+    ability4    varchar(255) NULL,
+    ability5    varchar(255) NULL,
+    hidden_abil varchar(255) NULL
 );
 
 CREATE TABLE Region(
-    region_name nvarchar(255),
-    origin_generation int
+    region_name varchar(255),
+    origin_generation int(11)
 );
 
 CREATE TABLE Pokemon(
-    pokedex_id int PRIMARY KEY UNIQUE,
-    poke_name nvarchar(255),
-    classification nvarchar(255),
-    height float,
-    weight float,
-    origin_generation int,
-    PRIMARY KEY(pokedex_id)
+    pokedex_id int(11) PRIMARY KEY,
+    poke_name varchar(255),
+    classification varchar(255),
+    height float(11),
+    weight float(11),
+    origin_generation int(11)
 );
 
-CREATE TABLE TeamLink(
-    pokedex_id int FOREIGN KEY,
-    team_id int FOREIGN KEY
+CREATE TABLE TeamLink( 
+    link_pokedex_id int(11),
+    link_team_id int (11),
+    fk_pokedex_id int(11) REFERENCES Pokemon(pokedex_id),
+    fk_team_id int(11) REFERENCES Team(team_id)
 );
 
 CREATE TABLE Team(
-    team_id   int PRIMARY KEY UNIQUE AUTO_INCREMENT,
-    team_name nvarchar(255) NULL,
-    pokemon_1 int NULL,
-    pokemon_2 int NULL,
-    pokemon_3 int NULL,
-    pokemon_4 int NULL,
-    pokemon_5 int NULL,
-    pokemon_6 int NULL,
+    team_id   int PRIMARY KEY AUTO_INCREMENT,
+    team_name varchar(255) NULL,
+    pokemon_1 int(11) NULL,
+    pokemon_2 int(11) NULL,
+    pokemon_3 int(11) NULL,
+    pokemon_4 int(11) NULL,
+    pokemon_5 int(11) NULL,
+    pokemon_6 int(11) NULL
 );
 
 -- Query for adding a new team composition with pokemon.

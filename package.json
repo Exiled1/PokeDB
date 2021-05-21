@@ -20,6 +20,10 @@
   },
   "homepage": "https://github.com/Exiled1/PokeDB#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "forever": "^3.0.4",
+    "mysql": "^2.18.1",
     "pokesprite-images": "^2.5.4"
   }
 }

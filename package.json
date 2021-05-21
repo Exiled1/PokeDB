@@ -10,8 +10,9 @@
     "dev": "nodemon app.js",
     "start": "node js/app.js",
     "build": "handlebars views/partials -f public/allTemplate.js",
-    "prestart": "npm run build",
-    "predev": "npm run build"
+    "buildAll": "npm run build && npm run buildIndex",
+    "prestart": "npm run buildAll",
+    "predev": "npm run buildAll"
   },
   "repository": {
     "type": "git",

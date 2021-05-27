@@ -1,17 +1,18 @@
-<table class="dataTable">
-    <thead>
-    {{!-- Table Headers --}}
-        <tr>
-            {{#each headers}}
-            <th>
-                {{this}} 
-            </th>
-            {{/each}}
-        </tr>
-    </thead>
-    
-    <tbody>
-        {{!-- Table contents --}}
+<div class="dataTableContainer">
+    <table class="dataTable">
+        <thead>
+            {{!-- Table Headers --}}
+            <tr>
+                {{#each headers}}
+                <th>
+                    {{this}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+
+        <tbody>
+            {{!-- Table contents --}}
             <tr>
                 {{#each tableData}}
                 <td>
@@ -19,6 +20,7 @@
                 </td>
                 {{/each}}
             </tr>
-            
-    </tbody>
-</table>
+
+        </tbody>
+    </table>
+</div>

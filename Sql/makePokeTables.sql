@@ -36,8 +36,8 @@ CREATE TABLE TeamLink(
 );
 
 CREATE TABLE Team(
-    team_id   int PRIMARY KEY AUTO_INCREMENT,
     team_name varchar(255) NULL,
+    team_id   int PRIMARY KEY AUTO_INCREMENT,
     pokemon_1 int(11) NULL,
     pokemon_2 int(11) NULL,
     pokemon_3 int(11) NULL,

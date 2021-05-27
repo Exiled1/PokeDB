@@ -1,13 +1,28 @@
-$button-padding: 5px 20px
+$button-padding: 6px 20px
 $description-padding: 20px
 $cell-padding: 10px
 $title-padding: 200px
 $big-font: 30px
 $med-font: 20px
 $sml-font: 15px
+$fonts:  arial, sans-serif
+$table-padding: 8px
+$table-border: 1px solid #dddddd
+$table-width: 100%
+$table-header-background: #dddddd
+$search-flex-width: 100%
+$background-color: #582841
+$search-round-corner: 10px
+$search-background: #fff
+$form-col-padding: 14px
+$data-table-margin: 25px 0
+$font-size: 0.9em
+$data-table-bgColor: #009879
+$data-table-color: #fff
+$datTable-cell-padding: 12px 15px
 
 body
-    background-color: #582841
+    background-color: $background-color
 
 div
     padding: $description-padding
@@ -15,11 +30,11 @@ div
 img
     padding: $cell-padding
 
-table
-    border="1"
-
 #top_menu
     display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    justify-content: space-around
     align-self: center
     padding: 0px
     background-color: #CC2A49
@@ -68,17 +83,24 @@ table
 
 .type_table_cell
     padding: $cell-padding
-
 .SearchContainer
     display: flex
+    flex-direction: row
     justify-content: center
+    max-width: $search-flex-width
+    flex-wrap: wrap
+.SearchFlex
+    border-radius: $search-round-corner
+    background: $search-background
+    padding: 10px
+.Search
+    padding: $button-padding
+
 
 .InputValue
     display: flex
     justify-content: center
 
-.Search
-    padding: $button-padding
 
 #bottom_text
     display: flex
@@ -87,3 +109,38 @@ table
     position:  relative
     background-color: #F99E4C
     bottom: -100px
+// Form stylings
+.formCol
+    padding: $form-col-padding
+.btn-primary
+    display: block
+    margin-left: auto
+    margin-right: auto
+// Table stylings
+table
+    font-family: $fonts
+    border-collapse: collapse
+    width: $table-width
+    border: "1"
+
+td, th
+    border: $table-border
+    text-align: left
+    padding: $table-padding
+
+tr
+    &:nth-child(1)
+        background: $table-header-background
+
+.dataTable
+    border-collapse: collapse
+    margin:    $data-table-margin
+    font-size: $font-size
+    min-width: 400px // Make variable later
+    thead, tr // might not work.
+        background-color: $data-table-bgColor
+        color: $data-table-color
+        text-align: left
+        font-weight: bold
+    th, td
+        padding: $datTable-cell-padding

@@ -14,6 +14,14 @@ img {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   -ms-flex-item-align: center;
       align-self: center;
   padding: 0px;
@@ -97,7 +105,7 @@ img {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  padding: 5px 20px;
+  padding: 6px 20px;
 }
 
 .type_table_cell {
@@ -108,9 +116,26 @@ img {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  max-width: 100%;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.SearchFlex {
+  border-radius: 10px;
+  background: #fff;
+  padding: 10px;
+}
+
+.Search {
+  padding: 6px 20px;
 }
 
 .InputValue {
@@ -120,10 +145,6 @@ img {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-}
-
-.Search {
-  padding: 5px 20px;
 }
 
 #bottom_text {
@@ -138,5 +159,50 @@ img {
   position: relative;
   background-color: #F99E4C;
   bottom: -100px;
+}
+
+.formCol {
+  padding: 14px;
+}
+
+.btn-primary {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border: "1";
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(1) {
+  background: #dddddd;
+}
+
+.dataTable {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+}
+
+.dataTable thead, .dataTable tr {
+  background-color: #009879;
+  color: #fff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.dataTable th, .dataTable td {
+  padding: 12px 15px;
 }
 /*# sourceMappingURL=styles.css.map */

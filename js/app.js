@@ -126,7 +126,7 @@ app.get('/types', async (req, res) => { // Request handled whenever a user sends
 
 app.post('/types', async(req, res) =>{
     var data = makeFormFields(["pokedex_id","poke_name"],["Pokedex ID", "Pokemon Name"]);
-    console.log("Recieved a pokemon query.");
+    console.log("Recieved a POST Types query.");
 
     // Use this sql query to get stuff from the database when it works.
     var sql = 'SELECT * FROM Pokemon WHERE pokedex_id = ? OR poke_name = ?'

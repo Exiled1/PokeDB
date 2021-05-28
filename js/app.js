@@ -1,3 +1,9 @@
+// Function is here to 'pause' the system to ensure all data is recived
+function wait(ms) {
+    var currTime = new Date().getTime();
+    while (currTime + ms >= new Date().getTime()) {}
+}
+
 /*
     SETUP
 */
@@ -46,13 +52,21 @@ app.get('/pokemon', async (req, res) => { // Request handled whenever a user sen
 app.post('/pokemon', async(req, res) =>{
     var data = makeFormFields(["pokedex_id","poke_name"],["Pokedex ID", "Pokemon Name"]);
    
-    var sql = 'SELECT * FROM Pokemon WHERE pokedex_id = ? OR poke_name = ?'
+    var sql = 'SELECT * FROM Pokemon WHERE pokedex_id = ? OR poke_name = ?;';
+    var sql2 = 'SELECT * FROM Pokemon;';
     console.log(req.body);
-    res.status(200).render("pokemon",{
-        reqPath: req.url,
-        words: Math.random() * 10,
-        field: data
-    });
+    var sqlRes;
+    db.pool.query(sql2, function(err, results, fields){
+        console.log("This is the results lol: " + JSON.stringify(results));
+        sqlRes = JSON.stringify(results);
+
+        console.log("This is the thing: " + sqlRes);
+        res.status(200).render("pokemon",{
+            reqPath: req.url,
+            words: sqlRes,
+            field: data
+        });
+    })
 
     console.log("Recieved a POST pokemon query.");
 });

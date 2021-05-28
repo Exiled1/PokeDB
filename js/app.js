@@ -9,6 +9,8 @@ var exphbs = require("express-handlebars");
 var app = express(); // We need to instantiate an express object to interact with the server in our code
 PORT = 2486; // Set a port number at the top so it's easy to change in the future
 // Database
+var async = require('asyncawait/async');
+var await = require('asyncawait/await');
 
 var db = require("./db-connector");
 var connection = db.pool;

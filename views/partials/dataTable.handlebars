@@ -13,14 +13,19 @@
 
         <tbody>
             {{!-- Table contents --}}
+            {{log tableData}}
+            {{#each tableData}}
             <tr>
-                {{#each tableData}}
+                
+                
+                {{#each this}}
+                {{!-- {{log this}} --}}
                 <td>
                     {{this}}
                 </td>
                 {{/each}}
             </tr>
-
+            {{/each}}
         </tbody>
     </table>
 </div>

@@ -19,7 +19,7 @@ templates['dataTable'] = template({"1":function(container,depth0,helpers,partial
   return "<div class=\"dataTableContainer\">\r\n    <table class=\"dataTable\">\r\n        <thead>\r\n            <tr>\r\n"
     + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"headers") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":6,"column":16},"end":{"line":10,"column":25}}})) != null ? stack1 : "")
     + "            </tr>\r\n        </thead>\r\n\r\n        <tbody>\r\n            <tr>\r\n"
-    + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"tableData") : depth0),{"name":"each","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":17,"column":16},"end":{"line":21,"column":25}}})) != null ? stack1 : "")
+    + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"tableData") : depth0),{"name":"each","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":18,"column":16},"end":{"line":23,"column":25}}})) != null ? stack1 : "")
     + "            </tr>\r\n\r\n        </tbody>\r\n    </table>\r\n</div>";
 },"useData":true});
 templates['exampleTable'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {

@@ -16,15 +16,19 @@ const { resolve } = require("path");
 const { rejects } = require("assert");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 app.use(express.static("public"));
 
 // Setup layout
+
+
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Requirement paths.
 
 app.get("/", async (req, res) => {
+    
     res.status(200).render("homepage"); // Serve the page.
     console.log("Recieved GET from /");
 });
@@ -34,11 +38,12 @@ app.get("/", async (req, res) => {
 // To send back certain things you'll need to get the user's list of rows on their side.
 app.get("/pokemon", async (req, res) => {
     // Request handled whenever a user sends a pokemon query.
+
     var data = makeFormFields(
         ["pokedex_id", "poke_name"],
         ["Pokedex ID", "Pokemon Name"]
     );
-    console.log(req.url);
+    //console.log(req.url);
     res.status(200).render("pokemon", {
         reqPath: req.url,
         field: data,
@@ -47,27 +52,28 @@ app.get("/pokemon", async (req, res) => {
     console.log("Got a GET pokemon request");
 });
 
-app.post("/pokemon", async (req, res) => {
+app.post("/pokemon", async (req, res) => { // This one is the main one that works... Plz no touch.
     var data = makeFormFields(
         ["pokedex_id", "poke_name"],
         ["Pokedex ID", "Pokemon Name"]
     );
 
-    var sql = "SELECT * FROM Pokemon WHERE pokedex_id = ? OR poke_name = ?;";
-    var sql2 = "SELECT * FROM Pokemon;";
-    console.log(req.body);
+    var sql = "SELECT * FROM Pokemon WHERE pokedex_id=? OR poke_name=?;";
+
+    //console.log(req.body);
     var userParams = [];
-    for (const property in req.body){
-        userParams.push(req.body[property])
-        console.log("Rawr " + req.body[property]);
-    }
-    console.log(userParams);
+    var pokeHead = [];
+    var pokeVal = [];
+
+    makeHeader(userParams, req.body);
     var sqlRes = await dbResponse(sql, userParams);
 
-    console.log("This is the thing: " + JSON.stringify(sqlRes));
+    makeTable(pokeHead, pokeVal, sqlRes);
+
     res.status(200).render("pokemon", {
         reqPath: req.url,
-        //words: sqlRes,
+        headers: pokeHead,
+        tableData: pokeVal,
         field: data,
     });
 
@@ -382,11 +388,11 @@ function Field(id, searchText) {
 function makeFormFields(idList, textList) {
     var data = [];
     for (let i = 0; i < idList.length; i++) {
-        console.log(idList[i]);
-        console.log(textList[i]);
+        // console.log(idList[i]);
+        // console.log(textList[i]);
         var newField = new Field(idList[i], textList[i]);
         data.push(newField);
-        console.log(data);
+        // console.log(data);
     }
     return data;
 }
@@ -408,3 +414,24 @@ let dbResponse = async (query, args) => {
 
     return results;
 };
+
+let makeTable = function(pokeHead, pokeVal, sqlResObj){
+    // If I don't get head from nurse joy, I will be depressed.
+    // var Key = [];
+    // var Value = [];
+    // console.log(sqlResObj);
+    pokeHead.push(...Object.keys(sqlResObj[0]));
+    
+    for (let i = 0; i < Object.keys(sqlResObj).length; i++) {
+        const element = sqlResObj[i];
+        // console.log(Object.values(element));
+        pokeVal.push(Object.values(element));
+    }
+
+}
+
+let makeHeader = function(arr, bodyReq){
+    for (const property in bodyReq){
+        arr.push(bodyReq[property]);
+    }
+}

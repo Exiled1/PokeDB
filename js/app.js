@@ -100,6 +100,7 @@ app.post('/pokedex', async(req, res) =>{
     });
     console.log("Recieved a POST pokedex query.");
 });
+
 app.post('/pokedexInsert', async(req, res) => {
     console.log("Recieved a POST request from Pokedex, Inserted a pokemon into the database from Pokedex.")
     var sql = 'INSERT INTO Pokemon (pokedex_id, poke_name, classification, height, weight, origin_generation) VALUES (?, ?, ?, ?, ?, ?);'
@@ -133,7 +134,21 @@ app.put('/pokedex', async(req, res) =>{
     });
 });
 
-
+app.delete("/pokedex", async(req,res) =>{
+    console.log("Recieved a POST request from Pokedex, Inserted a pokemon into the database from Pokedex.")
+    var sql = 'INSERT INTO Pokemon (pokedex_id, poke_name, classification, height, weight, origin_generation) VALUES (?, ?, ?, ?, ?, ?);'
+    
+    
+    var data = makeFormFields(["pokedex_id","poke_name"],["Pokedex ID", "Pokemon Name"]);
+    
+    var insertData = makeFormFields(["pokedex_id","poke_name","classification","height","weight","origin_generation"],["Pokedex ID", "Pokemon Name", "Classification", "Height","Weight","Origin Generation"]);
+    res.status(200).render("pokedex",{
+        reqPath: req.url,
+        field: data,
+        insertField: insertData,
+        words: Math.random() * 10
+    });
+});
 
 // --------------- Regions ----------------------
 app.get('/regions', async (req, res) => { // Request handled whenever a user sends a pokemon query.

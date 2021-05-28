@@ -59,8 +59,7 @@ app.post("/pokemon", async (req, res) => { // This one is the main one that work
     );
 
     var sql = "SELECT * FROM Pokemon WHERE pokedex_id=? OR poke_name=?;";
-
-    //console.log(req.body);
+    //var sql2 = "SELECT * FROM Abilities;";
     var userParams = [];
     var pokeHead = [];
     var pokeVal = [];
@@ -155,6 +154,7 @@ app.post("/pokedexInsert", async (req, res) => {
     console.log(
         "Recieved a POST request from Pokedex, Inserted a pokemon into the database from Pokedex."
     );
+    console.log(req.body);
     var sql =
         "INSERT INTO Pokemon (pokedex_id, poke_name, classification, height, weight, origin_generation) VALUES (?, ?, ?, ?, ?, ?);";
 
@@ -181,20 +181,16 @@ app.post("/pokedexInsert", async (req, res) => {
             "Origin Generation",
         ]
     );
+    console.log(req.body);
     res.status(200).render("pokedex", {
         reqPath: "/pokedex",
         field: data,
         insertField: insertData,
         words: Math.random() * 10,
     });
-    /*
-          :userPId
-          :userPName
-          :userClass
-          :userHeight
-          :userWeight
-          :userOriginGen
-      */
+
+    
+
 });
 app.put("/pokedex", async (req, res) => {
     console.log("Recieved an update request from Pokedex");
@@ -399,6 +395,7 @@ function makeFormFields(idList, textList) {
 
 let dbResponse = async (query, args) => {
     //get the results of the query.
+
     let results = await new Promise((resolve, reject) =>
         connection.query(query,args, (err, results) => {
             if (err) {

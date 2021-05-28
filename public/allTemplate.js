@@ -5,6 +5,17 @@ templates['dataTable'] = template({"1":function(container,depth0,helpers,partial
     + container.escapeExpression(container.lambda(depth0, depth0))
     + "\r\n                </th>\r\n";
 },"3":function(container,depth0,helpers,partials,data) {
+    var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return "            <tr>\r\n"
+    + ((stack1 = lookupProperty(helpers,"each").call(depth0 != null ? depth0 : (container.nullContext || {}),depth0,{"name":"each","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":16},"end":{"line":24,"column":25}}})) != null ? stack1 : "")
+    + "            </tr>\r\n";
+},"4":function(container,depth0,helpers,partials,data) {
     return "                <td>\r\n                    "
     + container.escapeExpression(container.lambda(depth0, depth0))
     + "\r\n                </td>\r\n";
@@ -18,9 +29,11 @@ templates['dataTable'] = template({"1":function(container,depth0,helpers,partial
 
   return "<div class=\"dataTableContainer\">\r\n    <table class=\"dataTable\">\r\n        <thead>\r\n            <tr>\r\n"
     + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"headers") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":6,"column":16},"end":{"line":10,"column":25}}})) != null ? stack1 : "")
-    + "            </tr>\r\n        </thead>\r\n\r\n        <tbody>\r\n            <tr>\r\n"
-    + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"tableData") : depth0),{"name":"each","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":18,"column":16},"end":{"line":23,"column":25}}})) != null ? stack1 : "")
-    + "            </tr>\r\n\r\n        </tbody>\r\n    </table>\r\n</div>";
+    + "            </tr>\r\n        </thead>\r\n\r\n        <tbody>\r\n            "
+    + container.escapeExpression(lookupProperty(helpers,"log").call(alias1,(depth0 != null ? lookupProperty(depth0,"tableData") : depth0),{"name":"log","hash":{},"data":data,"loc":{"start":{"line":16,"column":12},"end":{"line":16,"column":29}}}))
+    + "\r\n"
+    + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"tableData") : depth0),{"name":"each","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":17,"column":12},"end":{"line":26,"column":21}}})) != null ? stack1 : "")
+    + "        </tbody>\r\n    </table>\r\n</div>";
 },"useData":true});
 templates['exampleTable'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<table class=\"dataTable\">\r\n    <thead>\r\n        <tr>\r\n            <th>Name</th>\r\n            <th>Points</th>\r\n        </tr>\r\n    </thead>\r\n    <tbody>\r\n        <tr>\r\n            <td>Domenic</td>\r\n            <td>6000</td>\r\n        </tr>\r\n        <tr>\r\n            <td>Melissa</td>\r\n            <td>5150</td>\r\n        </tr>\r\n        <tr>\r\n            <td>Nick</td>\r\n            <td>5150</td>\r\n        </tr>\r\n        <!-- and so on... -->\r\n    </tbody>\r\n\r\n</table>";

@@ -7,7 +7,7 @@ var path = require("path");
 var express = require("express"); // We are using the express library for the web server
 var exphbs = require("express-handlebars");
 var app = express(); // We need to instantiate an express object to interact with the server in our code
-PORT = 9124; // Set a port number at the top so it's easy to change in the future
+PORT = 2486; // Set a port number at the top so it's easy to change in the future
 // Database
 
 var db = require("./db-connector");

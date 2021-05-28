@@ -9,6 +9,7 @@ templates['homepage'] = template({"compiler":[8,">= 4.3.0"],"main":function(cont
     };
 
   return ((stack1 = container.invokePartial(lookupProperty(partials,"homeText"),depth0,{"name":"homeText","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + ((stack1 = container.invokePartial(lookupProperty(partials,"dataTable"),depth0,{"name":"dataTable","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "");
+    + "\r\n<div>\r\n<!-- This is for spacing the page -->\r\n</div>\r\n\r\n"
+    + ((stack1 = container.invokePartial(lookupProperty(partials,"homeTable"),depth0,{"name":"homeTable","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "");
 },"usePartial":true,"useData":true});
 })();

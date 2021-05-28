@@ -26,35 +26,10 @@ templates['exampleTable'] = template({"compiler":[8,">= 4.3.0"],"main":function(
     return "<table class=\"dataTable\">\r\n    <thead>\r\n        <tr>\r\n            <th>Name</th>\r\n            <th>Points</th>\r\n        </tr>\r\n    </thead>\r\n    <tbody>\r\n        <tr>\r\n            <td>Domenic</td>\r\n            <td>6000</td>\r\n        </tr>\r\n        <tr>\r\n            <td>Melissa</td>\r\n            <td>5150</td>\r\n        </tr>\r\n        <tr>\r\n            <td>Nick</td>\r\n            <td>5150</td>\r\n        </tr>\r\n        <!-- and so on... -->\r\n    </tbody>\r\n\r\n</table>";
 },"useData":true});
 templates['homeTable'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=container.lambda, alias2=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
-          return parent[propertyName];
-        }
-        return undefined
-    };
-
-  return "<div class=\"poketables\">\r\n    <table border=\"1\">\r\n        <tbody>\r\n            <tr>\r\n                <th>Pokemon Name</th>\r\n                <th>Pokedex Number</th>\r\n                <th>Classification</th>\r\n                <th>Type 1</th>\r\n                <th>Type 2</th>\r\n                <th>Abilities</th>\r\n                <th>Generation of Origin</th>\r\n                <th>Height in Meters</th>\r\n                <th>Weight in Kilograms</th>\r\n            </tr>\r\n            <tr>\r\n                <th>"
-    + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"pokemon") : depth0)) != null ? lookupProperty(stack1,"name") : stack1), depth0))
-    + "</th>\r\n                <th>"
-    + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"pokemon") : depth0)) != null ? lookupProperty(stack1,"pokedex_number") : stack1), depth0))
-    + "</th>\r\n                <th>"
-    + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"pokemon") : depth0)) != null ? lookupProperty(stack1,"classification") : stack1), depth0))
-    + "</th>\r\n                <th>"
-    + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"pokemon") : depth0)) != null ? lookupProperty(stack1,"type1") : stack1), depth0))
-    + "</th>\r\n                <th>"
-    + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"pokemon") : depth0)) != null ? lookupProperty(stack1,"type2") : stack1), depth0))
-    + "</th>\r\n                <th>"
-    + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"pokemon") : depth0)) != null ? lookupProperty(stack1,"abilities") : stack1), depth0))
-    + "</th>\r\n                <th>"
-    + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"pokemon") : depth0)) != null ? lookupProperty(stack1,"origin_generation") : stack1), depth0))
-    + "</th>\r\n                <th>"
-    + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"pokemon") : depth0)) != null ? lookupProperty(stack1,"height") : stack1), depth0))
-    + "</th>\r\n                <th>"
-    + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"pokemon") : depth0)) != null ? lookupProperty(stack1,"weight") : stack1), depth0))
-    + "</th>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</div>";
+    return "<div class=\"poketables\">\r\n    <table border=\"1\">\r\n        <tbody>\r\n            <tr>\r\n                <th>Pokemon Name</th>\r\n                <th>Pokedex Number</th>\r\n                <th>Classification</th>\r\n                <th>Type 1</th>\r\n                <th>Type 2</th>\r\n                <th>Abilities</th>\r\n                <th>Generation of Origin</th>\r\n                <th>Height in Meters</th>\r\n                <th>Weight in Kilograms</th>\r\n            </tr>\r\n            <tr>\r\n                <th>Bulbsaur</th>\r\n                <th>1</th>\r\n                <th>Seed Pokemon</th>\r\n                <th>Grass</th>\r\n                <th>Poison</th>\r\n                <th>Overgrowth, Chlorophyll</th>\r\n                <th>1</th>\r\n                <th>0.7</th>\r\n                <th>6.9</th>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</div>";
 },"useData":true});
 templates['homeText'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"page_description\">\r\n    <p>\r\n        This database will contain all of the pokemon up to date, as of\r\n        April 29th 2021.\r\n        Each Pokemon will contain its pokedex index number, name,\r\n        typing, classification and more...\r\n\r\n        For example we can use Bulbasaur to demonstrate what you'll be\r\n        able to view from this creature!\r\n    </p>\r\n</div>\r\n";
+    return "<div class=\"page_description\">\r\n    <p>\r\n        This database will contain some of the pokemon found throughout the main games.\r\n        Each Pokemon will contain its pokedex index number, name,\r\n        typing, classification and more...\r\n\r\n        For example we can use Bulbasaur to demonstrate what you'll be\r\n        able to view from this creature!\r\n    </p>\r\n</div>\r\n";
 },"useData":true});
 templates['insertForm'] = template({"1":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {

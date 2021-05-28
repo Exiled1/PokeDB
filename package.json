@@ -8,7 +8,7 @@
     "buildIndex": "handlebars views/homepage.handlebars -f public/homepage.js",
     "build404": "handlebars views/error404.handlebars -f public/error404.js",
     "dev": "nodemon app.js",
-    "start": "node js/app.js",
+    "start": "node app.js",
     "build": "handlebars views/partials -f public/allTemplate.js",
     "buildAll": "npm run build && npm run buildIndex",
     "prestart": "npm run buildAll",

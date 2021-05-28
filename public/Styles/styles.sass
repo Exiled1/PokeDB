@@ -1,0 +1,167 @@
+$background-color: #582841
+$button-padding: 6px 20px
+$description-padding: 20px
+$cell-padding: 10px
+$title-padding: 200px
+$big-font: 30px
+$med-font: 20px
+$sml-font: 15px
+$fonts:  arial, sans-serif
+
+// Table Variables
+$table-padding: 8px
+$table-border: 1px solid #dddddd
+$table-width: 100%
+$table-header-background: #dddddd
+
+// Search Variables
+$search-flex-width: 100%
+$search-round-corner: 10px
+$search-background: #fff
+$form-col-padding: 14px
+
+// Data table style variables
+$data-table-margin: 25px 0
+$font-size: 0.9em
+$data-table-bgColor: #009879
+$data-table-color: #ffffff
+$datTable-cell-padding: 12px 15px
+$datTable-border-radius: 5px 5px 0 0
+$datTable-shadow: 0 0 20px rgba(0,0,0,0.15)
+
+body
+    background-color: $background-color
+
+div
+    padding: $description-padding
+
+img
+    padding: $cell-padding
+
+#top_menu
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    justify-content: space-around
+    align-self: center
+    padding: 0px
+    background-color: #CC2A49
+
+#top_menu_title
+    display: flex
+    justify-content: flex-start
+    font-size: $big-font
+    align-self: center
+    padding-right: $title-padding
+
+.menu_title
+    align-self: center
+
+#top_menu_nav
+    display: flex
+    align-self: center
+    padding-left: $title-padding
+
+.page_description
+    display: flex
+    font-size: $med-font
+    text-align: center
+    justify-content: center
+    background-color: #EF4648
+
+.poke_table_container
+    display: flex
+    flex-direction: column
+
+.poketables
+    display: flex
+    justify-content: center
+    background-color: #EF4648
+    padding-bottom: $description-padding
+
+.text
+    display: flex
+    justify-content: center
+
+.menu_buttons
+    justify-content: flex-start
+    padding: $button-padding
+
+
+.type_table_cell
+    padding: $cell-padding
+.SearchContainer
+    display: flex
+    flex-direction: row
+    align-content: flex-start
+    justify-content: center
+    max-width: $search-flex-width
+    flex-wrap: wrap
+.SearchFlex
+    border-radius: $search-round-corner
+    background: $search-background
+    padding: 10px
+.Search
+    padding: $button-padding
+
+
+.InputValue
+    display: flex
+    justify-content: center
+
+
+#bottom_text
+    display: flex
+    justify-content: center
+    align-self: center
+    position:  relative
+    background-color: #F99E4C
+    bottom: -100px
+// Form stylings
+.formCol
+    padding: $form-col-padding
+.btn-primary
+    display: block
+    margin-left: auto
+    margin-right: auto
+//Table stylings
+table
+    font-family: $fonts
+    border-collapse: collapse
+    width: $table-width
+    border: "1"
+
+.dataTable
+    border-collapse: collapse
+    margin:    $data-table-margin
+    font-size: $font-size
+    min-width: 400px // Make variable later
+    border-radius: $datTable-border-radius
+    overflow: hidden
+    box-shadow: $datTable-shadow
+
+    thead tr // might not work.
+        background-color: $data-table-bgColor
+        color: #fff
+        text-align: left
+        font-weight: bold
+    th, td
+        padding: $datTable-cell-padding
+    tbody tr
+        background-color: $data-table-color
+        border-bottom: 1px solid #ddd
+    tbody tr
+        &:nth-of-type(even)
+            background-color: #f3f3f3
+    tbody tr
+        &:last-of-type
+            border-radius: $datTable-border-radius
+            border-bottom: 2px solid $data-table-bgColor
+
+.formContainer
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    justify-content: center
+    // TODO: Maybe add an OnHover option to make the hovered over value stick out.
+            

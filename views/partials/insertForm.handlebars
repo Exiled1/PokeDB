@@ -1,0 +1,16 @@
+{{!-- You can pass in data from the rendering method, --}}
+<div class="SearchContainer">
+    <div class="SearchFlex">
+        <form action="{{reqPath}}Insert" class="getPokemon" method="post">
+            <legend>Insert Into Database</legend>
+            {{#each insertField}}
+            <div class="formCol">
+                <input class='form-control' type="text" name="{{id}}" id="{{id}}" placeholder="{{searchText}}">
+            </div>
+            {{/each}}
+            <div class="formCol">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+    </div>
+</div>

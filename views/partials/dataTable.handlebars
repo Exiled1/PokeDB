@@ -1,0 +1,26 @@
+<div class="dataTableContainer">
+    <table class="dataTable">
+        <thead>
+            {{!-- Table Headers --}}
+            <tr>
+                {{#each headers}}
+                <th>
+                    {{this}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+
+        <tbody>
+            {{!-- Table contents --}}
+            <tr>
+                {{#each tableData}}
+                <td>
+                    {{this}}
+                </td>
+                {{/each}}
+            </tr>
+
+        </tbody>
+    </table>
+</div>

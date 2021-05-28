@@ -4,11 +4,20 @@
 INSERT INTO Team (team_name, pokemon_1,pokemon_2,pokemon_3,pokemon_4,pokemon_5,pokemon_6)
 VALUES (:teamNameInput, :pokemon_1_input, :pokemon_2_input, :pokemon_3_input, :pokemon_4_input, :pokemon_5_input, :pokemon_6_input);
 
+-- POKEDEX STUFF to insert into the pokemon table.
+
+INSERT INTO Pokemon (pokedex_id, poke_name, classification, height, weight, origin_generation)
+VALUES (:userPId, :userPName, :userClass, :userHeight, :userWeight, :userOriginGen);
+
+UPDATE Pokemon
+SET 
 -- Pokemon search query, user can search for a pokemon by ID# or by their name, although ID# is preferred since a pokemon could be known by a different name.
 
 SELECT * 
 FROM Pokemon 
 WHERE pokedex_id = :userIDSearch OR poke_name = :pokeNameSearch;
+
+
 
 -- Pokemon Abilities search query.
 

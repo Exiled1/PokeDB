@@ -35,9 +35,6 @@ templates['dataTable'] = template({"1":function(container,depth0,helpers,partial
     + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"tableData") : depth0),{"name":"each","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":17,"column":12},"end":{"line":26,"column":21}}})) != null ? stack1 : "")
     + "        </tbody>\r\n    </table>\r\n</div>";
 },"useData":true});
-templates['exampleTable'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<table class=\"dataTable\">\r\n    <thead>\r\n        <tr>\r\n            <th>Name</th>\r\n            <th>Points</th>\r\n        </tr>\r\n    </thead>\r\n    <tbody>\r\n        <tr>\r\n            <td>Domenic</td>\r\n            <td>6000</td>\r\n        </tr>\r\n        <tr>\r\n            <td>Melissa</td>\r\n            <td>5150</td>\r\n        </tr>\r\n        <tr>\r\n            <td>Nick</td>\r\n            <td>5150</td>\r\n        </tr>\r\n        <!-- and so on... -->\r\n    </tbody>\r\n\r\n</table>";
-},"useData":true});
 templates['homeTable'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"poketables\">\r\n    <table border=\"1\">\r\n        <tbody>\r\n            <tr>\r\n                <th>Pokemon Name</th>\r\n                <th>Pokedex Number</th>\r\n                <th>Classification</th>\r\n                <th>Type 1</th>\r\n                <th>Type 2</th>\r\n                <th>Abilities</th>\r\n                <th>Generation of Origin</th>\r\n                <th>Height in Meters</th>\r\n                <th>Weight in Kilograms</th>\r\n            </tr>\r\n            <tr>\r\n                <th>Bulbsaur</th>\r\n                <th>1</th>\r\n                <th>Seed Pokemon</th>\r\n                <th>Grass</th>\r\n                <th>Poison</th>\r\n                <th>Overgrowth, Chlorophyll</th>\r\n                <th>1</th>\r\n                <th>0.7</th>\r\n                <th>6.9</th>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</div>";
 },"useData":true});
@@ -72,9 +69,6 @@ templates['insertForm'] = template({"1":function(container,depth0,helpers,partia
     + "Insert\" class=\"getPokemon\" method=\"post\">\r\n            <legend>Insert Into Database</legend>\r\n"
     + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"insertField") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":6,"column":12},"end":{"line":10,"column":21}}})) != null ? stack1 : "")
     + "            <div class=\"formCol\">\r\n                <button type=\"submit\" class=\"btn btn-primary\">Search</button>\r\n            </div>\r\n        </form>\r\n    </div>\r\n</div>";
-},"useData":true});
-templates['pokedexTable'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "";
 },"useData":true});
 templates['searchForm'] = template({"1":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {

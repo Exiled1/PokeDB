@@ -8,8 +8,7 @@ templates['homepage'] = template({"compiler":[8,">= 4.3.0"],"main":function(cont
         return undefined
     };
 
-  return ((stack1 = container.invokePartial(lookupProperty(partials,"homeText"),depth0,{"name":"homeText","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + "\r\n<div>\r\n<!-- This is for spacing the page -->\r\n</div>\r\n\r\n"
+  return "<div class=\"page_description\">\r\n    <h4>\r\n        This database will contain some of the pokemon found throughout the main games.\r\n        Each Pokemon will contain its pokedex index number, name,\r\n        typing, classification and more...\r\n\r\n        For example we can use Bulbasaur to demonstrate what you'll be\r\n        able to view from this creature!\r\n    </h4>\r\n</div>\r\n\r\n<div>\r\n<!-- This is for spacing the page -->\r\n</div>\r\n\r\n"
     + ((stack1 = container.invokePartial(lookupProperty(partials,"homeTable"),depth0,{"name":"homeTable","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "");
 },"usePartial":true,"useData":true});
 })();

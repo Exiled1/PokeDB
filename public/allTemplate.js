@@ -5,6 +5,17 @@ templates['dataTable'] = template({"1":function(container,depth0,helpers,partial
     + container.escapeExpression(container.lambda(depth0, depth0))
     + "\r\n                </th>\r\n";
 },"3":function(container,depth0,helpers,partials,data) {
+    var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return "            <tr>\r\n                \r\n                \r\n"
+    + ((stack1 = lookupProperty(helpers,"each").call(depth0 != null ? depth0 : (container.nullContext || {}),depth0,{"name":"each","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":21,"column":16},"end":{"line":26,"column":25}}})) != null ? stack1 : "")
+    + "            </tr>\r\n";
+},"4":function(container,depth0,helpers,partials,data) {
     return "                <td>\r\n                    "
     + container.escapeExpression(container.lambda(depth0, depth0))
     + "\r\n                </td>\r\n";
@@ -18,9 +29,11 @@ templates['dataTable'] = template({"1":function(container,depth0,helpers,partial
 
   return "<div class=\"dataTableContainer\">\r\n    <table class=\"dataTable\">\r\n        <thead>\r\n            <tr>\r\n"
     + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"headers") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":6,"column":16},"end":{"line":10,"column":25}}})) != null ? stack1 : "")
-    + "            </tr>\r\n        </thead>\r\n\r\n        <tbody>\r\n            <tr>\r\n"
-    + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"tableData") : depth0),{"name":"each","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":18,"column":16},"end":{"line":23,"column":25}}})) != null ? stack1 : "")
-    + "            </tr>\r\n\r\n        </tbody>\r\n    </table>\r\n</div>";
+    + "            </tr>\r\n        </thead>\r\n\r\n        <tbody>\r\n            "
+    + container.escapeExpression(lookupProperty(helpers,"log").call(alias1,(depth0 != null ? lookupProperty(depth0,"tableData") : depth0),{"name":"log","hash":{},"data":data,"loc":{"start":{"line":16,"column":12},"end":{"line":16,"column":29}}}))
+    + "\r\n"
+    + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"tableData") : depth0),{"name":"each","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":17,"column":12},"end":{"line":28,"column":21}}})) != null ? stack1 : "")
+    + "        </tbody>\r\n    </table>\r\n</div>";
 },"useData":true});
 templates['homeTable'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"poketables\">\r\n    <table border=\"1\">\r\n        <tbody>\r\n            <tr>\r\n                <th>Pokemon Name</th>\r\n                <th>Pokedex Number</th>\r\n                <th>Classification</th>\r\n                <th>Type 1</th>\r\n                <th>Type 2</th>\r\n                <th>Abilities</th>\r\n                <th>Generation of Origin</th>\r\n                <th>Height in Meters</th>\r\n                <th>Weight in Kilograms</th>\r\n            </tr>\r\n            <tr>\r\n                <th>Bulbsaur</th>\r\n                <th>1</th>\r\n                <th>Seed Pokemon</th>\r\n                <th>Grass</th>\r\n                <th>Poison</th>\r\n                <th>Overgrowth, Chlorophyll</th>\r\n                <th>1</th>\r\n                <th>0.7</th>\r\n                <th>6.9</th>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</div>";

@@ -55,16 +55,20 @@ app.post("/pokemon", async (req, res) => {
 
     var sql = "SELECT * FROM Pokemon WHERE pokedex_id=? OR poke_name=?;";
 
-    //console.log(req.body);
+    console.log(req.body);
     var userParams = [];
     var pokeHead = [];
     var pokeVal = [];
 
-  var sqlRes = await dbResponse(sql2);
-
+    makeHeader(userParams, req.body);
+    var sqlRes = await dbResponse(sql, userParams);
+	console.log(sqlRes);
+	makeTable(pokeHead,pokeVal,sqlRes)
   console.log("This is the thing: " + JSON.stringify(sqlRes));
   res.status(200).render("pokemon", {
     reqPath: req.url,
+	headers: pokeHead,
+	tableData: pokeVal,
     words: sqlRes,
     field: data,
   });

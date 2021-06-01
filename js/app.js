@@ -471,7 +471,7 @@ app.get("/abilities", async (req, res) => {
     );
     console.log(req.url);
 
-    var sql = "SELECT * FROM Abilities";
+    var sql = "SELECT Pokemon.poke_name, Abilities.pokedex_id, Abilities.ability1, Abilities.ability2, Abilities.hidden_abil FROM Abilities INNER JOIN Pokemon ON Abilities.pokedex_id=Pokemon.pokedex_id;";
     var userParams = [];
     var pokeHead = [];
     var pokeVal = [];
@@ -498,14 +498,15 @@ app.post("/abilities", async (req, res) => {
     );
     console.log(req.url);
 
-    var sql = "SELECT * FROM Abilities WHERE pokedex_id=? OR poke_name=?";
+    var sql = "SELECT Pokemon.poke_name, Abilities.pokedex_id, Abilities.ability1, Abilities.ability2, Abilities.hidden_abil FROM Abilities INNER JOIN Pokemon ON Abilities.pokedex_id=Pokemon.pokedex_id WHERE (Abilities.pokedex_id = ? OR Pokemon.poke_name = ?);";
+    
     var userParams = [];
     var pokeHead = [];
     var pokeVal = [];
 
     makeHeader(userParams, req.body);
     var sqlRes = await dbResponse(sql, userParams);
-
+    
     makeTable(pokeHead, pokeVal, sqlRes);
 
     res.status(200).render("abilities", {
@@ -556,16 +557,16 @@ let dbResponse = async (query, args) => {
             if (err) {
                 console.log("Database Request Failed");
                 console.log(err);
-                reject(err);
+                reject(new Error ("Could not find pokemon, database is not connected, query failed, or there is a misspelled query."));
             } else {
                 resolve(results);
             }
         })
-    );
+    ).catch(error => console.log(error));
     console.log("Query Ready");
 
     return results;
-};
+}; 
 
 let makeTable = function(pokeHead, pokeVal, sqlResObj){
   // If I don't get head from nurse joy, I will be depressed.
@@ -587,3 +588,8 @@ let makeHeader = function(arr, bodyReq){
       arr.push(bodyReq[property]);
   }
 }
+
+process.on('unhandledRejection', error => {
+  console.log('Unhandled Rejection', error.message);
+  console.log("\nRejection Stack Trace: ", error.stack);
+})

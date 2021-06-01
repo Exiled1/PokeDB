@@ -592,5 +592,5 @@ let makeHeader = function(arr, bodyReq){
 process.on('unhandledRejection', error => {
   console.log('Unhandled Rejection', error.message);
   console.log("\nRejection Stack Trace: ", error.stack);
-  process.exit(69);
+  // process.exit(69);
 })

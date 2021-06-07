@@ -25,7 +25,29 @@ app.set("view engine", "handlebars");
 // Requirement paths.
 
 app.get("/", async (req, res) => {
-  res.status(200).render("homepage"); // Serve the page.
+  var data = makeFormFields(
+    ["pokedex_id", "poke_name"],
+    ["Pokedex ID", "Pokemon Name"]
+  );
+  console.log(req.url);
+
+  var sql = "SELECT Pokemon.poke_name, Pokemon.pokedex_id, Pokemon.pokedex_id, Types.type1, Types.type2, Pokemon.classification, Pokemon.height, Pokemon.weight, Abilities.ability1, Abilities.hidden_abil FROM Abilities INNER JOIN Pokemon ON Abilities.pokedex_id=Pokemon.pokedex_id INNER JOIN Types ON Pokemon.pokedex_id=Types.pokedex_id WHERE Abilities.pokedex_id = 1;";
+
+  var userParams = [];
+  var pokeHead = [];
+  var pokeVal = [];
+
+  makeHeader(userParams, req.body);
+  var sqlRes = await dbResponse(sql, userParams);
+
+  makeTable(pokeHead, pokeVal, sqlRes);
+
+  res.status(200).render("homepage", {
+    reqPath: req.url,
+    headers: pokeHead,
+    tableData: pokeVal,
+  });
+
   console.log("Recieved GET from /");
 });
 
@@ -61,16 +83,19 @@ app.post("/pokemon", async (req, res) => {
     var pokeVal = [];
 
     makeHeader(userParams, req.body);
+
     var sqlRes = await dbResponse(sql, userParams);
-	console.log(sqlRes);
-	makeTable(pokeHead,pokeVal,sqlRes)
-  console.log("This is the thing: " + JSON.stringify(sqlRes));
-  res.status(200).render("pokemon", {
-    reqPath: req.url,
-	headers: pokeHead,
-	tableData: pokeVal,
-    words: sqlRes,
-    field: data,
+	  console.log(sqlRes);
+	  makeTable(pokeHead,pokeVal,sqlRes)
+
+    console.log("This is the thing: " + JSON.stringify(sqlRes));
+
+    res.status(200).render("pokemon", {
+      reqPath: req.url,
+	    headers: pokeHead,
+	    tableData: pokeVal,
+      words: sqlRes,
+      field: data,
   });
 
   console.log("Recieved a POST pokemon query.");

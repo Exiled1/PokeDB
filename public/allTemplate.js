@@ -68,7 +68,7 @@ templates['insertForm'] = template({"1":function(container,depth0,helpers,partia
     + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"reqPath") || (depth0 != null ? lookupProperty(depth0,"reqPath") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"reqPath","hash":{},"data":data,"loc":{"start":{"line":4,"column":22},"end":{"line":4,"column":33}}}) : helper)))
     + "Insert\" class=\"getPokemon\" method=\"post\">\r\n            <legend>Insert Into Database</legend>\r\n"
     + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"insertField") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":6,"column":12},"end":{"line":10,"column":21}}})) != null ? stack1 : "")
-    + "            <div class=\"formCol\">\r\n                <button type=\"submit\" class=\"btn btn-primary\">Search</button>\r\n            </div>\r\n        </form>\r\n    </div>\r\n</div>";
+    + "            <div class=\"formCol\">\r\n                <button type=\"submit\" class=\"btn btn-primary\">Insert</button>\r\n            </div>\r\n        </form>\r\n    </div>\r\n</div>";
 },"useData":true});
 templates['searchForm'] = template({"1":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {

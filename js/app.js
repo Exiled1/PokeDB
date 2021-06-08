@@ -35,7 +35,7 @@ app.get("/", async (req, res) => {
   console.log("Random Pokemon: ", randomPokemon);
 
   var sql =
-    "SELECT Pokemon.poke_name, Pokemon.pokedex_id, Pokemon.pokedex_id, Types.type1, Types.type2, Pokemon.classification, Pokemon.height, Pokemon.weight, Abilities.ability1, Abilities.hidden_abil FROM Abilities INNER JOIN Pokemon ON Abilities.pokedex_id=Pokemon.pokedex_id INNER JOIN Types ON Pokemon.pokedex_id=Types.pokedex_id WHERE Abilities.pokedex_id = " +
+    "SELECT Pokemon.pokedex_id, Pokemon.poke_name, Types.type1, Types.type2, Pokemon.classification, Pokemon.height, Pokemon.weight, Abilities.ability1, Abilities.hidden_abil FROM Abilities INNER JOIN Pokemon ON Abilities.pokedex_id=Pokemon.pokedex_id INNER JOIN Types ON Pokemon.pokedex_id=Types.pokedex_id WHERE Abilities.pokedex_id = " +
     randomPokemon;
 
   var userParams = [];
@@ -627,7 +627,7 @@ app.get("/abilities", async (req, res) => {
   console.log(req.url);
 
   var sql =
-    "SELECT Pokemon.poke_name, Abilities.pokedex_id, Abilities.ability1, Abilities.ability2, Abilities.hidden_abil FROM Abilities INNER JOIN Pokemon ON Abilities.pokedex_id=Pokemon.pokedex_id;";
+    "SELECT Abilities.pokedex_id, Pokemon.poke_name, Abilities.ability1, Abilities.ability2, Abilities.hidden_abil FROM Abilities INNER JOIN Pokemon ON Abilities.pokedex_id=Pokemon.pokedex_id;";
   var userParams = [];
   var pokeHead = [];
   var pokeVal = [];
@@ -655,7 +655,7 @@ app.post("/abilities", async (req, res) => {
   console.log(req.url);
 
   var sql =
-    "SELECT Pokemon.poke_name, Abilities.pokedex_id, Abilities.ability1, Abilities.ability2, Abilities.hidden_abil FROM Abilities INNER JOIN Pokemon ON Abilities.pokedex_id=Pokemon.pokedex_id WHERE (Abilities.pokedex_id = ? OR Pokemon.poke_name = ?);";
+    "SELECT Abilities.pokedex_id ,Pokemon.poke_name, Abilities.ability1, Abilities.ability2, Abilities.hidden_abil FROM Abilities INNER JOIN Pokemon ON Abilities.pokedex_id=Pokemon.pokedex_id WHERE (Abilities.pokedex_id = ? OR Pokemon.poke_name = ?);";
 
   var userParams = [];
   var pokeHead = [];

@@ -1,1 +1,1 @@
-// $(".getPokemon").validate();
+$(".getPokemon").validate();

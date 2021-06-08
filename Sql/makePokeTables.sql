@@ -48,6 +48,19 @@ CREATE TABLE Team(
 
 -- Query for adding a new team composition with pokemon.
 -- 
+-- :eyes:
+  var sql = "INSERT INTO Pokemon (pokedex_id, poke_name,classification,height,weight,origin_generation) VALUES (?,?,?,?,?,?) SELECT * FROM Pokemon;";
 
-INSERT INTO Team (team_name, pokemon_1,pokemon_2, pokemon_3, pokemon_4, pokemon_5, pokemon_6)
-VALUES ("Trainer Red Team", 006, 025, 003, 009, 143, 131);
+INSERT INTO Pokemon ()
+
+"INSERT INTO Team (team_name, pokemon_1,pokemon_2, pokemon_3, pokemon_4, pokemon_5, pokemon_6)
+VALUES (?, (SELECT pokedex_id from Pokemon where pokedex_id = ?, SELECT pokedex_id from Pokemon where pokedex_id = ?,SELECT pokedex_id from Pokemon where pokedex_id = ?, SELECT pokedex_id from Pokemon where pokedex_id = ?, SELECT pokedex_id from Pokemon where pokedex_id = ?, SELECT pokedex_id from Pokemon where pokedex_id = ?))
+SELECT * from Team;";
+
+SELECT (Pokemon.pokedex_id)
+FROM Pokemon
+WHERE
+
+SELECT pokedex_id from Pokemon where pokedex_id = ?
+"SELECT Pokemon.poke_name, Pokemon.pokedex_id, Pokemon.pokedex_id, Types.type1, Types.type2, Pokemon.classification, Pokemon.height, Pokemon.weight, Abilities.ability1, Abilities.hidden_abil FROM Abilities INNER JOIN Pokemon ON Abilities.pokedex_id=Pokemon.pokedex_id INNER JOIN Types ON Pokemon.pokedex_id=Types.pokedex_id WHERE Abilities.pokedex_id = " +
+    randomPokemon;

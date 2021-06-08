@@ -34,6 +34,7 @@
     "forever": "^3.0.4",
     "handlebars": "^4.7.7",
     "jquery": "^3.6.0",
+    "jquery-validation": "^1.19.3",
     "jsdom": "^16.5.3",
     "mysql": "^2.18.1",
     "pokesprite-images": "^2.5.4",

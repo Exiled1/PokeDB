@@ -1,19 +1,26 @@
 <head>
-    <link rel="stylesheet" href="/Styles/styles.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/Styles/styles.css">
     <title>Pokedex</title>
+    {{#each scripts}}
+        <script src="{{scripts}}"></script>
+    {{/each}}
 </head>
 
 <body>
     <div id="top_menu">
         <span class="menu_buttons">The Pokedex Database - Group 67 (CoE Group) </span>
         <a href="/" class="menu_buttons">Home</a>
-        <a href="pokemon" class="menu_buttons">Pokemon</a>
+        <a href="pokemonInsert" class="menu_buttons">Insert Pokemon</a>
         <a href="pokedex" class="menu_buttons">Pokedex</a>
         <a href="teams" class="menu_buttons">Teams</a>
         <a href="abilities" class="menu_buttons">Abilities</a>
         <a href="types" class="menu_buttons">Types</a>
         <a href="regions" class="menu_buttons">Regions</a>
+        <a href="teamsInsert" class="menu_buttons">Insert Team</a>
     </div>
 
     <div>

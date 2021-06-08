@@ -32,9 +32,11 @@ app.get("/", async (req, res) => {
   console.log(req.url);
 
   var randomPokemon = Math.floor(Math.random() * 151);
-  console.log("Random Pokemon: ", randomPokemon)
+  console.log("Random Pokemon: ", randomPokemon);
 
-  var sql = "SELECT Pokemon.poke_name, Pokemon.pokedex_id, Pokemon.pokedex_id, Types.type1, Types.type2, Pokemon.classification, Pokemon.height, Pokemon.weight, Abilities.ability1, Abilities.hidden_abil FROM Abilities INNER JOIN Pokemon ON Abilities.pokedex_id=Pokemon.pokedex_id INNER JOIN Types ON Pokemon.pokedex_id=Types.pokedex_id WHERE Abilities.pokedex_id = " + randomPokemon;
+  var sql =
+    "SELECT Pokemon.poke_name, Pokemon.pokedex_id, Pokemon.pokedex_id, Types.type1, Types.type2, Pokemon.classification, Pokemon.height, Pokemon.weight, Abilities.ability1, Abilities.hidden_abil FROM Abilities INNER JOIN Pokemon ON Abilities.pokedex_id=Pokemon.pokedex_id INNER JOIN Types ON Pokemon.pokedex_id=Types.pokedex_id WHERE Abilities.pokedex_id = " +
+    randomPokemon;
 
   var userParams = [];
   var pokeHead = [];
@@ -57,19 +59,96 @@ app.get("/", async (req, res) => {
 // ================================================== POKEMON ==================================================
 
 // To send back certain things you'll need to get the user's list of rows on their side.
-app.get("/pokemon", async (req, res) => {
+app.get("/pokemonInsert", async (req, res) => {
   // Request handled whenever a user sends a pokemon query.
-  var data = makeFormFields(
-    ["pokedex_id", "poke_name"],
-    ["Pokedex ID", "Pokemon Name"]
+  var scripts = [{scripts: "pokemonInsert.js"}]
+  var insertData = makeFormFields(
+    [
+      "pokedex_id"        ,
+      "poke_name"         ,
+      "classification"    ,
+      "height"            ,
+      "weight"            ,
+      "origin_generation" ,
+    ],
+    [
+      "Pokedex ID",
+      "Pokemon Name",
+      "Classification",
+      "Height",
+      "Weight",
+      "Origin Generation",
+    ]
   );
-  console.log(req.url);
-  res.status(200).render("pokemon", {
-    reqPath: req.url,
-    field: data,
+  var sql = "INSERT INTO Pokemon (pokedex_id, poke_name,classification,height,weight,origin_generation) VALUES (?,?,?,?,?,?);";
+
+  console.log(req.body);
+  var userParams = [];
+  var pokeHead = [];
+  var pokeVal = [];
+
+  makeHeader(userParams, req.body);
+
+  await dbResponse(sql, userParams);
+
+  //console.log("This is the thing: " + JSON.stringify(sqlRes));
+
+  res.status(200).render("pokemonInsert", {
+    reqPath: req.path,
+    headers: pokeHead,
+    insertField: insertData,
+    tableData: pokeVal,
+    responseContent: "Please Make A Database Request.",
+    scripts: scripts
   });
 
-  console.log("Got a GET pokemon request");
+  console.log("Got a GET pokemonInsert request");
+});
+
+app.post("/pokemonInsert", async(req, res) =>{
+  var insertData = makeFormFields(
+    [
+      "pokedex_id"        ,
+      "poke_name"         ,
+      "classification"    ,
+      "height"            ,
+      "weight"            ,
+      "origin_generation" ,
+    ],
+    [
+      "Pokedex ID"        ,
+      "Pokemon Name"      ,
+      "Classification"    ,
+      "Height"            ,
+      "Weight"            ,
+      "Origin Generation" ,
+    ]
+  );
+  var sql = "INSERT INTO Pokemon (pokedex_id, poke_name,classification,height,weight,origin_generation) VALUES (?,?,?,?,?,?)";
+
+  console.log(req.body);
+  var userParams = [];
+  var pokeHead = [];
+  var pokeVal = [];
+
+  makeHeader(userParams, req.body);
+
+  await dbResponse(sql, userParams);
+  console.log(sqlRes);
+  sql = "SELECT * FROM Pokemon;"
+  var sqlRes = await dbResponse(sql, userParams);
+  makeTable(pokeHead, pokeVal, sqlRes);
+  //console.log("This is the thing: " + JSON.stringify(sqlRes));
+  
+  res.status(200).render("pokemonInsert", {
+    reqPath: req.path,
+    headers: pokeHead,
+    insertField: insertData,
+    tableData: pokeVal,
+    responseContent: "Request Successfully Made"
+  });
+
+  console.log("Got a GET pokemonInsert request");
 });
 
 app.post("/pokemon", async (req, res) => {
@@ -78,27 +157,27 @@ app.post("/pokemon", async (req, res) => {
     ["Pokedex ID", "Pokemon Name"]
   );
 
-    var sql = "SELECT * FROM Pokemon WHERE pokedex_id=? OR poke_name=?;";
+  var sql = "SELECT * FROM Pokemon WHERE pokedex_id=? OR poke_name=?;";
 
-    console.log(req.body);
-    var userParams = [];
-    var pokeHead = [];
-    var pokeVal = [];
+  console.log(req.body);
+  var userParams = [];
+  var pokeHead = [];
+  var pokeVal = [];
 
-    makeHeader(userParams, req.body);
+  makeHeader(userParams, req.body);
 
-    var sqlRes = await dbResponse(sql, userParams);
-	  console.log(sqlRes);
-	  makeTable(pokeHead,pokeVal,sqlRes)
+  var sqlRes = await dbResponse(sql, userParams);
+  console.log(sqlRes);
+  makeTable(pokeHead, pokeVal, sqlRes);
 
-    console.log("This is the thing: " + JSON.stringify(sqlRes));
+  console.log("This is the thing: " + JSON.stringify(sqlRes));
 
-    res.status(200).render("pokemon", {
-      reqPath: req.url,
-	    headers: pokeHead,
-	    tableData: pokeVal,
-      words: sqlRes,
-      field: data,
+  res.status(200).render("pokemon", {
+    reqPath: req.url,
+    headers: pokeHead,
+    tableData: pokeVal,
+    words: sqlRes,
+    field: data,
   });
 
   console.log("Recieved a POST pokemon query.");
@@ -107,141 +186,147 @@ app.post("/pokemon", async (req, res) => {
 // ================================================== POKEDEX ==================================================
 
 app.get("/pokedex", async (req, res) => {
-    // Request handled whenever a user sends a pokemon query.
-    var data = makeFormFields(
-        ["pokedex_id", "poke_name"],
-        ["Pokedex ID", "Pokemon Name"]
-    );
-    var insertData = makeFormFields(
-        [
-            "pokedex_id",
-            "poke_name",
-            "classification",
-            "height",
-            "weight",
-            "origin_generation",
-        ],
-        [
-            "Pokedex ID",
-            "Pokemon Name",
-            "Classification",
-            "Height",
-            "Weight",
-            "Origin Generation",
-        ]
-    );
-    console.log(req.url);
+  var scripts = [{scripts: "deletePokemon.js"}]
+  // Request handled whenever a user sends a pokemon query.
+  var data = makeFormFields(
+    ["pokedex_id", "poke_name"],
+    ["Pokedex ID", "Pokemon Name"]
+  );
+  var insertData = makeFormFields(
+    [
+      "pokedex_id",
+      "poke_name",
+      "classification",
+      "height",
+      "weight",
+      "origin_generation",
+    ],
+    [
+      "Pokedex ID",
+      "Pokemon Name",
+      "Classification",
+      "Height",
+      "Weight",
+      "Origin Generation",
+    ]
+  );
+  console.log(req.url);
 
-    var sql = "SELECT * FROM Pokemon";
-    var userParams = [];
-    var pokeHead = [];
-    var pokeVal = [];
+  var sql = "SELECT * FROM Pokemon";
+  var userParams = [];
+  var pokeHead = [];
+  var pokeVal = [];
 
-    makeHeader(userParams, req.body);
-    var sqlRes = await dbResponse(sql, userParams);
+  makeHeader(userParams, req.body);
+  var sqlRes = await dbResponse(sql, userParams);
 
-    makeTable(pokeHead, pokeVal, sqlRes);
+  makeTable(pokeHead, pokeVal, sqlRes);
 
-    res.status(200).render("pokedex", {
-        reqPath: req.url,
-        headers: pokeHead,
-        tableData: pokeVal,
-        field: data,
-        insertField: insertData,
-    });
+  res.status(200).render("pokedex", {
+    reqPath: req.url,
+    headers: pokeHead,
+    tableData: pokeVal,
+    field: data,
+    insertField: insertData,
+    scripts: scripts
+  });
 
-    console.log("Got a GET pokedex request");
+  console.log("Got a GET pokedex request");
 });
 
 app.post("/pokedex", async (req, res) => {
-    var data = makeFormFields(
-        ["pokedex_id", "poke_name"],
-        ["Pokedex ID", "Pokemon Name"]
-    );
-    var insertData = makeFormFields(
-        [
-            "pokedex_id",
-            "poke_name",
-            "classification",
-            "height",
-            "weight",
-            "origin_generation",
-        ],
-        [
-            "Pokedex ID",
-            "Pokemon Name",
-            "Classification",
-            "Height",
-            "Weight",
-            "Origin Generation",
-        ]
-    );
+  var data = makeFormFields(
+    ["pokedex_id", "poke_name"],
+    ["Pokedex ID", "Pokemon Name"]
+  );
+  var insertData = makeFormFields(
+    [
+      "pokedex_id",
+      "poke_name",
+      "classification",
+      "height",
+      "weight",
+      "origin_generation",
+    ],
+    [
+      "Pokedex ID",
+      "Pokemon Name",
+      "Classification",
+      "Height",
+      "Weight",
+      "Origin Generation",
+    ]
+  );
 
-    // Use this sql query to get stuff from the database when it works.
-    var sql = "SELECT * FROM Pokemon WHERE pokedex_id = ? OR poke_name = ?";
-    var userParams = [];
-    var pokeHead = [];
-    var pokeVal = [];
+  // Use this sql query to get stuff from the database when it works.
+  var sql = "SELECT * FROM Pokemon WHERE pokedex_id = ? OR poke_name = ?";
+  var userParams = [];
+  var pokeHead = [];
+  var pokeVal = [];
 
-    makeHeader(userParams, req.body);
-    var sqlRes = await dbResponse(sql, userParams);
+  makeHeader(userParams, req.body);
+  var sqlRes = await dbResponse(sql, userParams);
 
-    makeTable(pokeHead, pokeVal, sqlRes);
+  makeTable(pokeHead, pokeVal, sqlRes);
 
-    res.status(200).render("pokedex", {
-        reqPath: req.url,
-        headers: pokeHead,
-        tableData: pokeVal,
-        field: data,
-        insertField: insertData,
-    });
-    console.log("Recieved a POST pokedex query.");
+  res.status(200).render("pokedex", {
+    reqPath: req.url,
+    headers: pokeHead,
+    tableData: pokeVal,
+    field: data,
+    insertField: insertData,
+  });
+  console.log("Recieved a POST pokedex query.");
 });
 
 app.post("/pokedexInsert", async (req, res) => {
-    console.log(
-        "Recieved a POST request from Pokedex, Inserted a pokemon into the database from Pokedex."
-    );
-    var sql =
-        "INSERT INTO Pokemon (pokedex_id, poke_name, classification, height, weight, origin_generation) VALUES (?, ?, ?, ?, ?, ?);";
+  console.log(
+    "Recieved a POST request from Pokedex, Inserted a pokemon into the database from Pokedex."
+  );
+  var sql =
+    "INSERT INTO Pokemon (pokedex_id, poke_name, classification, height, weight, origin_generation) VALUES (?, ?, ?, ?, ?, ?);";
 
-    var data = makeFormFields(
-        ["pokedex_id", "poke_name"],
-        ["Pokedex ID", "Pokemon Name"]
-    );
+  var data = makeFormFields(
+    ["pokedex_id", "poke_name"],
+    ["Pokedex ID", "Pokemon Name"]
+  );
 
-    var insertData = makeFormFields(
-        [
-            "pokedex_id",
-            "poke_name",
-            "classification",
-            "height",
-            "weight",
-            "origin_generation",
-        ],
-        [
-            "Pokedex ID",
-            "Pokemon Name",
-            "Classification",
-            "Height",
-            "Weight",
-            "Origin Generation",
-        ]
-    );
-    res.status(200).render("pokedex", {
-        reqPath: "/pokedex",
-        field: data,
-        insertField: insertData,
-        words: Math.random() * 10,
-    });
-    /*
-          :userPId
-          :userPName
-          :userClass
-          :userHeight
-          :userWeight
-          :userOriginGen
-      */
+  var insertData = makeFormFields(
+    [
+      "pokedex_id",
+      "poke_name",
+      "classification",
+      "height",
+      "weight",
+      "origin_generation",
+    ],
+    [
+      "Pokedex ID",
+      "Pokemon Name",
+      "Classification",
+      "Height",
+      "Weight",
+      "Origin Generation",
+    ]
+  );
+  makeHeader(userParams, req.body);
+  await dbResponse(sql, userParams);
+
+
+  res.status(200).render("pokedex", {
+    reqPath: "/pokedex",
+    field: data,
+    insertField: insertData,
+    words: Math.random() * 10,
+  });
+  /*
+        :userPId
+        :userPName
+        :userClass
+        :userHeight
+        :userWeight
+        :userOriginGen
+    */
 });
 app.put("/pokedex", async (req, res) => {
   console.log("Recieved an update request from Pokedex");
@@ -296,183 +381,225 @@ app.delete("/pokedex", async (req, res) => {
 
 // ================================================== REGIONS ==================================================
 app.get("/regions", async (req, res) => {
-    // Request handled whenever a user sends a pokemon query.
-    var data = makeFormFields(
-        ["region_name", "origin_generation"],
-        ["Region Name", "Origin Generation"]
-    );
-    console.log(req.url);
+  // Request handled whenever a user sends a pokemon query.
+  var data = makeFormFields(
+    ["region_name", "origin_generation"],
+    ["Region Name", "Origin Generation"]
+  );
+  console.log(req.url);
 
-    var sql = "SELECT * FROM Region";
-    var userParams = [];
-    var pokeHead = [];
-    var pokeVal = [];
+  var sql = "SELECT * FROM Region";
+  var userParams = [];
+  var pokeHead = [];
+  var pokeVal = [];
 
-    makeHeader(userParams, req.body);
-    var sqlRes = await dbResponse(sql, userParams);
+  makeHeader(userParams, req.body);
+  var sqlRes = await dbResponse(sql, userParams);
 
-    makeTable(pokeHead, pokeVal, sqlRes);
+  makeTable(pokeHead, pokeVal, sqlRes);
 
-    res.status(200).render("regions", {
-        reqPath: req.url,
-        field: data,
-        headers: pokeHead,
-        tableData: pokeVal,
-    });
+  res.status(200).render("regions", {
+    reqPath: req.url,
+    field: data,
+    headers: pokeHead,
+    tableData: pokeVal,
+  });
 
-    console.log("Got a GET Region request");
+  console.log("Got a GET Region request");
 });
 
 app.post("/regions", async (req, res) => {
-    var data = makeFormFields(
-        ["region_name", "origin_generation"],
-        ["Region Name", "Origin Generation"]
-    );
-    console.log(req.url);
+  var data = makeFormFields(
+    ["region_name", "origin_generation"],
+    ["Region Name", "Origin Generation"]
+  );
+  console.log(req.url);
 
-    var sql = "SELECT * FROM Region WHERE region_name=? OR origin_generation=?";
-    var userParams = [];
-    var pokeHead = [];
-    var pokeVal = [];
+  var sql = "SELECT * FROM Region WHERE region_name=? OR origin_generation=?";
+  var userParams = [];
+  var pokeHead = [];
+  var pokeVal = [];
 
-    makeHeader(userParams, req.body);
-    var sqlRes = await dbResponse(sql, userParams);
+  makeHeader(userParams, req.body);
+  var sqlRes = await dbResponse(sql, userParams);
 
-    makeTable(pokeHead, pokeVal, sqlRes);
+  makeTable(pokeHead, pokeVal, sqlRes);
 
-    res.status(200).render("regions", {
-        reqPath: req.url,
-        field: data,
-        headers: pokeHead,
-        tableData: pokeVal,
-    });
+  res.status(200).render("regions", {
+    reqPath: req.url,
+    field: data,
+    headers: pokeHead,
+    tableData: pokeVal,
+  });
 
-    console.log("Recieved a POST pokemon query.");
+  console.log("Recieved a POST pokemon query.");
 });
 
 // ================================================== TYPES ==================================================
 app.get("/types", async (req, res) => {
-    // Request handled whenever a user sends a pokemon query.
-    var data = makeFormFields(
-        ["pokedex_id", "type1", "type2"],
-        ["Pokedex ID", "Type 1", "Type 2"]
-    );
-    console.log(req.url);
+  // Request handled whenever a user sends a pokemon query.
+  var data = makeFormFields(
+    ["pokedex_id", "type1", "type2"],
+    ["Pokedex ID", "Type 1", "Type 2"]
+  );
+  console.log(req.url);
 
-    var sql = "SELECT * FROM Types";
-    var userParams = [];
-    var pokeHead = [];
-    var pokeVal = [];
+  var sql = "SELECT * FROM Types";
+  var userParams = [];
+  var pokeHead = [];
+  var pokeVal = [];
 
-    makeHeader(userParams, req.body);
-    var sqlRes = await dbResponse(sql, userParams);
+  makeHeader(userParams, req.body);
+  var sqlRes = await dbResponse(sql, userParams);
 
-    makeTable(pokeHead, pokeVal, sqlRes);
+  makeTable(pokeHead, pokeVal, sqlRes);
 
-    res.status(200).render("types", {
-        reqPath: req.url,
-        field: data,
-        headers: pokeHead,
-        tableData: pokeVal,
-    });
+  res.status(200).render("types", {
+    reqPath: req.url,
+    field: data,
+    headers: pokeHead,
+    tableData: pokeVal,
+  });
 
-    console.log("Got a GET Types request");
+  console.log("Got a GET Types request");
 });
 
 app.post("/types", async (req, res) => {
-    var data = makeFormFields(
-        ["pokedex_id", "type1", "type2"],
-        ["Pokedex ID", "Type 1", "Type 2"]
-    );
-    console.log(req.url);
+  var data = makeFormFields(
+    ["pokedex_id", "type1", "type2"],
+    ["Pokedex ID", "Type 1", "Type 2"]
+  );
+  console.log(req.url);
 
-    var sql = "SELECT * FROM Types WHERE pokedex_id=? OR type1=? OR type2=?";
-    var userParams = [];
-    var pokeHead = [];
-    var pokeVal = [];
+  var sql = "SELECT * FROM Types WHERE pokedex_id=? OR type1=? OR type2=?";
+  var userParams = [];
+  var pokeHead = [];
+  var pokeVal = [];
 
-    makeHeader(userParams, req.body);
-    var sqlRes = await dbResponse(sql, userParams);
+  makeHeader(userParams, req.body);
+  var sqlRes = await dbResponse(sql, userParams);
 
-    makeTable(pokeHead, pokeVal, sqlRes);
+  makeTable(pokeHead, pokeVal, sqlRes);
 
-    res.status(200).render("types", {
-        reqPath: req.url,
-        field: data,
-        headers: pokeHead,
-        tableData: pokeVal,
-    });
+  res.status(200).render("types", {
+    reqPath: req.url,
+    field: data,
+    headers: pokeHead,
+    tableData: pokeVal,
+  });
 
-    console.log("Recieved a POST Types query.");
+  console.log("Recieved a POST Types query.");
 });
 // ================================================== TEAMS ==================================================
 
 app.get("/teams", async (req, res) => {
-    // Request handled whenever a user sends a pokemon query.
-    var data = makeFormFields(
-        ["team_id", "team_name", "pokemon_1", "pokemon_2"],
-        ["Team ID", "Team Name", "Pokemon 1", "Pokemon 2"]
-    );
+  // Request handled whenever a user sends a pokemon query.
+  var data = makeFormFields(
+    ["team_id", "team_name", "pokemon_1", "pokemon_2"],
+    ["Team ID", "Team Name", "Pokemon 1", "Pokemon 2"]
+  );
 
-    var insert = makeFormFields(
-        ["team_id", "team_name", "pokemon_1", "pokemon_2", "pokemon_3", "pokemon_4", "pokemon_5", "pokemon_6"],
-        ["Team ID", "Team Name", "Pokemon 1", "Pokemon 2", "Pokemon 3", "Pokemon 4", "Pokemon 5", "Pokemon 6"]
-    );
+  var insert = makeFormFields(
+    [
+      "team_id",
+      "team_name",
+      "pokemon_1",
+      "pokemon_2",
+      "pokemon_3",
+      "pokemon_4",
+      "pokemon_5",
+      "pokemon_6",
+    ],
+    [
+      "Team ID",
+      "Team Name",
+      "Pokemon 1",
+      "Pokemon 2",
+      "Pokemon 3",
+      "Pokemon 4",
+      "Pokemon 5",
+      "Pokemon 6",
+    ]
+  );
 
-    console.log(req.url);
+  console.log(req.url);
 
-    var sql = "SELECT * FROM Team";
-    var userParams = [];
-    var pokeHead = [];
-    var pokeVal = [];
+  var sql = "SELECT * FROM Team";
+  var userParams = [];
+  var pokeHead = [];
+  var pokeVal = [];
 
-    makeHeader(userParams, req.body);
-    var sqlRes = await dbResponse(sql, userParams);
+  makeHeader(userParams, req.body);
+  var sqlRes = await dbResponse(sql, userParams);
 
-    makeTable(pokeHead, pokeVal, sqlRes);
+  makeTable(pokeHead, pokeVal, sqlRes);
 
-    res.status(200).render("teams", {
-        reqPath: req.url,
-        field: data,
-        insertField: insert,
-        headers: pokeHead,
-        tableData: pokeVal,
-    });
+  res.status(200).render("teams", {
+    reqPath: req.url,
+    field: data,
+    insertField: insert,
+    headers: pokeHead,
+    tableData: pokeVal,
+  });
 
-    console.log("Got a GET Teams request");
+  console.log("Got a GET Teams request");
 });
 
 app.post("/teams", async (req, res) => {
-    var data = makeFormFields(
-        ["team_id", "team_name", "pokemon_1", "pokemon_2"],
-        ["Team ID", "Team Name", "Pokemon 1", "Pokemon 2"]
-    );
+  var data = makeFormFields(
+    ["team_id", "team_name", "pokemon_1", "pokemon_2"],
+    ["Team ID", "Team Name", "Pokemon 1", "Pokemon 2"]
+  );
 
-    var insert = makeFormFields(
-        ["team_id", "team_name", "pokemon_1", "pokemon_2", "pokemon_3", "pokemon_4", "pokemon_5", "pokemon_6"],
-        ["Team ID", "Team Name", "Pokemon 1", "Pokemon 2", "Pokemon 3", "Pokemon 4", "Pokemon 5", "Pokemon 6"]
-    );
+  var insert = makeFormFields(
+    [
+      "team_id",
+      "team_name",
+      "pokemon_1",
+      "pokemon_2",
+      "pokemon_3",
+      "pokemon_4",
+      "pokemon_5",
+      "pokemon_6",
+    ],
+    [
+      "Team ID",
+      "Team Name",
+      "Pokemon 1",
+      "Pokemon 2",
+      "Pokemon 3",
+      "Pokemon 4",
+      "Pokemon 5",
+      "Pokemon 6",
+    ]
+  );
 
-    console.log(req.url);
-    var sql = "SELECT * FROM Team WHERE team_id=? OR team_name=? OR pokemon_1=? OR pokemon_2=?";
-    var userParams = [];
-    var pokeHead = [];
-    var pokeVal = [];
+  console.log(req.url);
+  var sql =
+    "SELECT * FROM Team WHERE team_id=? OR team_name=? OR pokemon_1=? OR pokemon_2=?";
+  var userParams = [];
+  var pokeHead = [];
+  var pokeVal = [];
 
-    makeHeader(userParams, req.body);
-    var sqlRes = await dbResponse(sql, userParams);
+  makeHeader(userParams, req.body);
+  var sqlRes = await dbResponse(sql, userParams);
 
-    makeTable(pokeHead, pokeVal, sqlRes);
+  makeTable(pokeHead, pokeVal, sqlRes);
+  
+  res.status(200).render("teams", {
+    reqPath: req.url,
+    field: data,
 
-    res.status(200).render("teams", {
-        reqPath: req.url,
-        field: data,
-        insertField: insert,
-        headers: pokeHead,
-        tableData: pokeVal,
-    });
+    headers: pokeHead,
+    tableData: pokeVal,
+  });
 
-    console.log("Recieved a POST Teams query.");
+  console.log("Recieved a POST Teams query.");
+});
+
+app.get("/teamsInsert", async (req, res) => {
+  var sql = "INSERT INTO Team (team_name, pokemon_1,pokemon_2, pokemon_3, pokemon_4, pokemon_5, pokemon_6) VALUES (?, (SELECT pokedex_id from Pokemon where poke_name = ?, SELECT pokedex_id from Pokemon where poke_name = ?, SELECT pokedex_id from Pokemon where poke_name = ?, SELECT pokedex_id from Pokemon where poke_name = ?, SELECT pokedex_id from Pokemon where poke_name = ?, SELECT pokedex_id from Pokemon where poke_name = ?)) SELECT * from Team;";
+  res.status(200).render("teamsInsert", {});
 });
 
 app.put("/teams", async (req, res) => {
@@ -492,59 +619,61 @@ app.listen(PORT, () => {
 });
 // ================================================== ABILITIES ==================================================
 app.get("/abilities", async (req, res) => {
-    // Request handled whenever a user sends a pokemon query.
-    var data = makeFormFields(
-        ["pokedex_id", "poke_name"],
-        ["Pokedex ID", "Pokemon Name"]
-    );
-    console.log(req.url);
+  // Request handled whenever a user sends a pokemon query.
+  var data = makeFormFields(
+    ["pokedex_id", "poke_name"],
+    ["Pokedex ID", "Pokemon Name"]
+  );
+  console.log(req.url);
 
-    var sql = "SELECT Pokemon.poke_name, Abilities.pokedex_id, Abilities.ability1, Abilities.ability2, Abilities.hidden_abil FROM Abilities INNER JOIN Pokemon ON Abilities.pokedex_id=Pokemon.pokedex_id;";
-    var userParams = [];
-    var pokeHead = [];
-    var pokeVal = [];
+  var sql =
+    "SELECT Pokemon.poke_name, Abilities.pokedex_id, Abilities.ability1, Abilities.ability2, Abilities.hidden_abil FROM Abilities INNER JOIN Pokemon ON Abilities.pokedex_id=Pokemon.pokedex_id;";
+  var userParams = [];
+  var pokeHead = [];
+  var pokeVal = [];
 
-    makeHeader(userParams, req.body);
-    var sqlRes = await dbResponse(sql, userParams);
+  makeHeader(userParams, req.body);
+  var sqlRes = await dbResponse(sql, userParams);
 
-    makeTable(pokeHead, pokeVal, sqlRes);
+  makeTable(pokeHead, pokeVal, sqlRes);
 
-    res.status(200).render("abilities", {
-        reqPath: req.url,
-        field: data,
-        headers: pokeHead,
-        tableData: pokeVal,
-    });
+  res.status(200).render("abilities", {
+    reqPath: req.url,
+    field: data,
+    headers: pokeHead,
+    tableData: pokeVal,
+  });
 
-    console.log("Got a GET Abilities request");
+  console.log("Got a GET Abilities request");
 });
 
 app.post("/abilities", async (req, res) => {
-    var data = makeFormFields(
-        ["pokedex_id", "poke_name"],
-        ["Pokedex ID", "Pokemon Name"]
-    );
-    console.log(req.url);
+  var data = makeFormFields(
+    ["pokedex_id", "poke_name"],
+    ["Pokedex ID", "Pokemon Name"]
+  );
+  console.log(req.url);
 
-    var sql = "SELECT Pokemon.poke_name, Abilities.pokedex_id, Abilities.ability1, Abilities.ability2, Abilities.hidden_abil FROM Abilities INNER JOIN Pokemon ON Abilities.pokedex_id=Pokemon.pokedex_id WHERE (Abilities.pokedex_id = ? OR Pokemon.poke_name = ?);";
-    
-    var userParams = [];
-    var pokeHead = [];
-    var pokeVal = [];
+  var sql =
+    "SELECT Pokemon.poke_name, Abilities.pokedex_id, Abilities.ability1, Abilities.ability2, Abilities.hidden_abil FROM Abilities INNER JOIN Pokemon ON Abilities.pokedex_id=Pokemon.pokedex_id WHERE (Abilities.pokedex_id = ? OR Pokemon.poke_name = ?);";
 
-    makeHeader(userParams, req.body);
-    var sqlRes = await dbResponse(sql, userParams);
-    
-    makeTable(pokeHead, pokeVal, sqlRes);
+  var userParams = [];
+  var pokeHead = [];
+  var pokeVal = [];
 
-    res.status(200).render("abilities", {
-        reqPath: req.url,
-        field: data,
-        headers: pokeHead,
-        tableData: pokeVal,
-    });
+  makeHeader(userParams, req.body);
+  var sqlRes = await dbResponse(sql, userParams);
 
-    console.log("Recieved a POST Abilities query.");
+  makeTable(pokeHead, pokeVal, sqlRes);
+
+  res.status(200).render("abilities", {
+    reqPath: req.url,
+    field: data,
+    headers: pokeHead,
+    tableData: pokeVal,
+  });
+
+  console.log("Recieved a POST Abilities query.");
 });
 // ===========================================================================================================
 // --------------- Helper Functions ----------------------
@@ -575,50 +704,58 @@ function makeFormFields(idList, textList) {
     data.push(newField);
     console.log(data);
   }
+
   return data;
 }
 
 let dbResponse = async (query, args) => {
-    //get the results of the query.
-    let results = await new Promise((resolve, reject) =>
-        connection.query(query,args, (err, results) => {
-            if (err) {
-                console.log("Database Request Failed");
-                console.log(err);
-                reject(new Error ("Could not find pokemon, database is not connected, query failed, or there is a misspelled query."));
-            } else {
-                resolve(results);
-            }
-        })
-    ).catch(error => console.log(error));
-    console.log("Query Ready");
+  //get the results of the query.
+  let results = await new Promise((resolve, reject) =>
+    
+    connection.query(query, args, (err, results) => {
+      console.log("User Query: " + query)
+      if (err) {
+        console.log("Database Request Failed");
+        console.log(err);
+        reject(
+          new Error(
+            "Could not find pokemon, database is not connected, query failed, or there is a misspelled query."
+          )
+        );
+      } else {
+        console.log(results);
+        resolve(results);
+      }
+    })
+  ).catch((error) => console.log(error));
+  console.log("Query Ready");
 
-    return results;
-}; 
+  return results;
+};
 
-let makeTable = function(pokeHead, pokeVal, sqlResObj){
+let makeTable = function (pokeHead, pokeVal, sqlResObj) {
   // If I don't get head from nurse joy, I will be depressed.
   // var Key = [];
   // var Value = [];
   // console.log(sqlResObj);
   pokeHead.push(...Object.keys(sqlResObj[0]));
-  
+
   for (let i = 0; i < Object.keys(sqlResObj).length; i++) {
-      const element = sqlResObj[i];
-      // console.log(Object.values(element));
-      pokeVal.push(Object.values(element));
+    const element = sqlResObj[i];
+    // console.log(Object.values(element));
+    pokeVal.push(Object.values(element));
   }
+  pokeHead.push("Settings")
+};
 
-}
-
-let makeHeader = function(arr, bodyReq){
-  for (const property in bodyReq){
-      arr.push(bodyReq[property]);
+let makeHeader = function (arr, bodyReq) {
+  for (const property in bodyReq) {
+    arr.push(bodyReq[property]);
   }
-}
+};
 
-process.on('unhandledRejection', error => {
-  console.log('Unhandled Rejection', error.message);
+process.on("unhandledRejection", (error) => {
+  console.log("Unhandled Rejection", error.message);
   console.log("\nRejection Stack Trace: ", error.stack);
   // process.exit(69);
-})
+});

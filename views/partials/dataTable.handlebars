@@ -4,7 +4,7 @@
             {{!-- Table Headers --}}
             <tr>
                 {{#each headers}}
-                <th>
+                <th id="{{this}}">
                     {{this}}
                 </th>
                 {{/each}}
@@ -24,6 +24,10 @@
                     {{this}}
                 </td>
                 {{/each}}
+                <td>
+                    <button class="btn btn-danger delete-btn" > Delete </button>
+                    <button class="btn btn-info update-btn"> Update</button>
+                </td>
             </tr>
             {{/each}}
         </tbody>

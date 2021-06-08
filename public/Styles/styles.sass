@@ -1,4 +1,4 @@
-$background-color: #582841
+$background-color: #F99E4C
 $button-padding: 6px 20px
 $description-padding: 20px
 $cell-padding: 10px
@@ -7,13 +7,14 @@ $big-font: 30px
 $med-font: 20px
 $sml-font: 15px
 $fonts:  arial, sans-serif
-
+$top-menu-bg: #EF4648
+$footer-bg: #F36F38
 // Table Variables
 $table-padding: 8px
 $table-border: 1px solid #dddddd
 $table-width: 100%
 $table-header-background: #dddddd
-
+$footer-width: 100%
 // Search Variables
 $search-flex-width: 100%
 $search-round-corner: 10px
@@ -23,7 +24,7 @@ $form-col-padding: 14px
 // Data table style variables
 $data-table-margin: 25px 0
 $font-size: 0.9em
-$data-table-bgColor: #009879
+$data-table-bgColor: #582841
 $data-table-color: #ffffff
 $datTable-cell-padding: 12px 15px
 $datTable-border-radius: 5px 5px 0 0
@@ -45,7 +46,7 @@ img
     justify-content: space-around
     align-self: center
     padding: 0px
-    background-color: #CC2A49
+    background-color: $top-menu-bg
 
 #top_menu_title
     display: flex
@@ -78,6 +79,7 @@ img
     justify-content: center
     background-color: #EF4648
     padding-bottom: $description-padding
+    
 
 .text
     display: flex
@@ -111,19 +113,24 @@ img
 
 
 #bottom_text
+    width: $footer-width
     display: flex
     justify-content: center
     align-self: center
-    position:  relative
-    background-color: #F99E4C
-    bottom: -100px
+
+    background-color: $footer-bg
+    flex-shrink: 0
+    bottom: 0px
+
 // Form stylings
 .formCol
     padding: $form-col-padding
+
 .btn-primary
     display: block
     margin-left: auto
     margin-right: auto
+
 //Table stylings
 table
     font-family: $fonts
@@ -164,4 +171,13 @@ table
     flex-wrap: wrap
     justify-content: center
     // TODO: Maybe add an OnHover option to make the hovered over value stick out.
-            
+
+.form-btn
+    display: block
+    margin-left: auto
+    margin-right: auto
+a
+    color: white
+    &:focus, &:hover
+        color: black
+
